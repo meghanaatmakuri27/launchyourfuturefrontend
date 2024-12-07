@@ -25,7 +25,7 @@ const JobEditForm = () => {
   useEffect(() => {
     const fetchJobDetails = async () => {
       try {
-        const response = await axios.get(`http://localhost:2026/job/view/${id}`);
+        const response = await axios.get(`launchyourfuturebackend.up.railway.app/job/view/${id}`);
         setJobDetails(response.data);
       } catch (err) {
         setError("Error fetching job details.");
@@ -63,7 +63,7 @@ const JobEditForm = () => {
     e.preventDefault();
     try {
       const response = await axios.put(
-        `http://localhost:2026/job/update/${id}`, // Update request with job ID
+        `launchyourfuturebackend.up.railway.app/job/update/${id}`, // Update request with job ID
         jobDetails,
         {
           headers: {

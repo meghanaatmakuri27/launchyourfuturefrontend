@@ -20,7 +20,7 @@ const EmployeeEditForm = () => {
   useEffect(() => {
     const fetchEmployeeDetails = async () => {
       try {
-        const response = await axios.get(`http://localhost:2026/employee/view/${id}`);
+        const response = await axios.get(`launchyourfuturebackend.up.railway.app/employee/view/${id}`);
         setEmployeeDetails(response.data);
       } catch (err) {
         setError("Error fetching employee details.");
@@ -45,7 +45,7 @@ const EmployeeEditForm = () => {
     e.preventDefault();
     try {
       const response = await axios.put(
-        `http://localhost:2026/employee/update/${id}`,
+        `launchyourfuturebackend.up.railway.app/employee/update/${id}`,
         employeeDetails,
         {
           headers: {

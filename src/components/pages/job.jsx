@@ -19,7 +19,7 @@ const JobPage = () => {
   useEffect(() => {
     const fetchJobs = async () => {
       try {
-        const response = await axios.get('http://localhost:2026/job/viewall');
+        const response = await axios.get('launchyourfuturebackend.up.railway.app/job/viewall');
         setJobs(response.data); // Set the fetched data
       } catch (err) {
         setError('Error fetching jobs');

@@ -14,7 +14,7 @@ const JobForm = () => {
   useEffect(() => {
     const fetchJob = async () => {
       try {
-        const response = await axios.get(`http://localhost:2026/job/view/${id}`);
+        const response = await axios.get(`launchyourfuturebackend.up.railway.app/job/view/${id}`);
         setJob(response.data);
       } catch (err) {
         setError("Error fetching job details.");
@@ -33,7 +33,7 @@ const JobForm = () => {
 
   const handleDelete = async () => {
     try {
-      await axios.delete(`http://localhost:2026/job/delete/${id}`);
+      await axios.delete(`launchyourfuturebackend.up.railway.app/job/delete/${id}`);
       navigate("/addjob"); // Redirect to the job list after successful deletion
     } catch (err) {
       setError("Error deleting the job.");

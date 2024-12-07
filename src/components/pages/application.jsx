@@ -78,7 +78,7 @@ const ApplicationForm = () => {
   
     try {
       const response = await axios.post(
-        "http://localhost:2026/applications/add",
+        "launchyourfuturebackend.up.railway.app/applications/add",
         submissionData,
         {
           headers: {

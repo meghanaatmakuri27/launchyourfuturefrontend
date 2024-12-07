@@ -18,7 +18,7 @@ const EmployeeTable = () => {
   const fetchEmployees = () => {
     setLoading(true);
     axios
-      .get("http://localhost:2026/employee/viewall")
+      .get("launchyourfuturebackend.up.railway.app/employee/viewall")
       .then((response) => {
         setEmployees(response.data); // Update state with fetched employees
         setLoading(false);
@@ -37,7 +37,7 @@ const EmployeeTable = () => {
   const handleDelete = (id) => {
     if (window.confirm("Are you sure you want to delete this employee?")) {
       axios
-        .delete(`http://localhost:2026/employee/delete/${id}`)
+        .delete(`launchyourfuturebackend.up.railway.app/employee/delete/${id}`)
         .then(() => {
           alert("Employee deleted successfully");
           fetchEmployees();

@@ -1,4 +1,3 @@
-import EmployeeSidebar from "./EmployeeSidebar";
 import Card from "./card";
 
 const Dashboard = () => {
@@ -13,7 +12,6 @@ const Dashboard = () => {
     <div className="flex min-h-screen bg-gray-100">
       {/* Sidebar */}
       <div className="w-1/5 bg-white shadow-lg">
-        <EmployeeSidebar />
       </div>
 
       {/* Main Content */}

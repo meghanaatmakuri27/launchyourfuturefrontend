@@ -17,51 +17,60 @@ const ApplicationForm = () => {
     country: '',
     canVerifyWork: '',
     jobId: job?.id || '',
-    education: [{ degree: '', institution: '', yearOfPassing: '' }],
+    educationDetails: [{ degree: '', institution: '', yearOfPassing: '' }],
     skills: '',
   });
 
   const [formError, setFormError] = useState('');
 
+  // Handle input change for text and select fields
   const handleChange = (e) => {
     const { name, value } = e.target;
-    console.log(`Field: ${name}, Value: ${value}`); // Debug log
     setFormData({ ...formData, [name]: value });
   };
 
+  // Handle file input change and validate PDF
   const handleFileChange = (e) => {
     const file = e.target.files[0];
-    if (file && file.type !== 'application/pdf') {
-      setFormError('Please upload a valid PDF file for your resume.');
-      return;
+    if (file) {
+      if (file.type !== 'application/pdf') {
+        setFormError('Please upload a valid PDF file for your resume.');
+        return;
+      }
+      if (file.size > 10 * 1024 * 1024) { // 10 MB size limit
+        setFormError('File size exceeds 10MB');
+        return;
+      }
     }
     setFormError('');
     setFormData({ ...formData, resume: file });
   };
 
+  // Handle education fields dynamically
   const handleEducationChange = (index, field, value) => {
-    const updatedEducation = [...formData.education];
+    const updatedEducation = [...formData.educationDetails];
     updatedEducation[index][field] = value;
-    setFormData({ ...formData, education: updatedEducation });
+    setFormData({ ...formData, educationDetails: updatedEducation });
   };
 
   const addEducationField = () => {
-    if (formData.education.length >= 3) {
+    if (formData.educationDetails.length >= 3) {
       setFormError('You can only add up to 3 education entries.');
       return;
     }
     setFormData({
       ...formData,
-      education: [...formData.education, { degree: '', institution: '', yearOfPassing: '' }],
+      educationDetails: [...formData.educationDetails, { degree: '', institution: '', yearOfPassing: '' }],
     });
     setFormError('');
   };
 
+  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
-    // Create a new FormData instance
     const submissionData = new FormData();
+    
+    // Append fields as expected by the backend
     submissionData.append("jobId", formData.jobId);
     submissionData.append("firstName", formData.firstName);
     submissionData.append("lastName", formData.lastName);
@@ -70,12 +79,10 @@ const ApplicationForm = () => {
     submissionData.append("gender", formData.gender);
     submissionData.append("country", formData.country);
     submissionData.append("canVerifyWork", formData.canVerifyWork);
-    if (formData.resume) {
-      submissionData.append("resume", formData.resume);
-    }
-    submissionData.append("educationDetails", JSON.stringify(formData.education));
+    if (formData.resume) submissionData.append("resume", formData.resume);
+    submissionData.append("educationDetails", JSON.stringify(formData.educationDetails));
     submissionData.append("skills", formData.skills);
-  
+
     try {
       const response = await axios.post(
         "https://launchyourfuturebackend.up.railway.app/applications/add",
@@ -86,40 +93,38 @@ const ApplicationForm = () => {
           },
         }
       );
-      console.log("Application submitted:", response.data);
-      // Redirect or display a success message
+      console.log("Application submitted successfully:", response.data);
       navigate("/success");
     } catch (error) {
       console.error("Error submitting application:", error);
-  
-      // Handle 400 error (duplicate application)
-      if (error.response && error.response.status === 400) {
+
+      if (error.response?.status === 400) {
         setFormError("You have already applied for this job.");
       } else {
         setFormError("Failed to submit the application. Please try again.");
       }
     }
   };
-  
+
   return (
     <div className="p-6">
       <h1 className="text-3xl font-semibold mb-6">Submit Your Application</h1>
       <form onSubmit={handleSubmit} className="space-y-4">
         <p className="text-xl font-bold">{job?.title}</p>
 
-        {/* Error Message */}
+        {/* Display form errors */}
         {formError && <div className="text-red-500 mb-4">{formError}</div>}
 
-        {/* Basic Details */}
+        {/* Basic Details Section */}
         <label>
           First Name *
           <input
             type="text"
             name="firstName"
-            required
             value={formData.firstName}
             onChange={handleChange}
             className="block w-full p-2 border rounded"
+            required
           />
         </label>
 
@@ -128,22 +133,22 @@ const ApplicationForm = () => {
           <input
             type="text"
             name="lastName"
-            required
             value={formData.lastName}
             onChange={handleChange}
             className="block w-full p-2 border rounded"
+            required
           />
         </label>
 
         <label>
-          Phone Number *
+          Phone *
           <input
             type="tel"
             name="phone"
-            required
             value={formData.phone}
             onChange={handleChange}
             className="block w-full p-2 border rounded"
+            required
           />
         </label>
 
@@ -152,10 +157,10 @@ const ApplicationForm = () => {
           <input
             type="email"
             name="email"
-            required
             value={formData.email}
             onChange={handleChange}
             className="block w-full p-2 border rounded"
+            required
           />
         </label>
 
@@ -164,58 +169,40 @@ const ApplicationForm = () => {
           <input
             type="file"
             name="resume"
-            required
             onChange={handleFileChange}
             className="block w-full p-2 border rounded"
+            required
           />
         </label>
 
-        {/* Gender */}
+        {/* Gender Selection */}
         <div>
           <p className="font-semibold">Gender *</p>
-          <label>
-            <input
-              type="radio"
-              name="gender"
-              value="Male"
-              checked={formData.gender === 'Male'}
-              onChange={handleChange}
-              className="mr-2"
-            />
-            Male
-          </label>
-          <label className="ml-4">
-            <input
-              type="radio"
-              name="gender"
-              value="Female"
-              checked={formData.gender === 'Female'}
-              onChange={handleChange}
-              className="mr-2"
-            />
-            Female
-          </label>
-          <label className="ml-4">
-            <input
-              type="radio"
-              name="gender"
-              value="Other"
-              checked={formData.gender === 'Other'}
-              onChange={handleChange}
-              className="mr-2"
-            />
-            Other
-          </label>
+          {['Male', 'Female', 'Other'].map((option) => (
+            <label key={option} className="ml-2">
+              <input
+                type="radio"
+                name="gender"
+                value={option}
+                checked={formData.gender === option}
+                onChange={handleChange}
+                className="mr-2"
+                required
+              />
+              {option}
+            </label>
+          ))}
         </div>
 
+        {/* Country Dropdown */}
         <label>
           Country *
           <select
             name="country"
-            required
             value={formData.country}
             onChange={handleChange}
             className="block w-full p-2 border rounded"
+            required
           >
             <option value="">Select Country</option>
             <option value="India">India</option>
@@ -223,14 +210,15 @@ const ApplicationForm = () => {
           </select>
         </label>
 
+        {/* Can Verify Work Rights Dropdown */}
         <label>
           Can Verify Work Rights? *
           <select
             name="canVerifyWork"
-            required
             value={formData.canVerifyWork}
             onChange={handleChange}
             className="block w-full p-2 border rounded"
+            required
           >
             <option value="">Select</option>
             <option value="Yes">Yes</option>
@@ -238,46 +226,37 @@ const ApplicationForm = () => {
           </select>
         </label>
 
-        {/* Education Details */}
+        {/* Education Section */}
         <div>
           <p className="text-lg font-semibold">Education Details *</p>
-          {formData.education.map((edu, index) => (
-            <div key={index} className="space-y-2 mb-4">
-              <label>
-                Degree *
-                <input
-                  type="text"
-                  name={`degree-${index}`}
-                  required
-                  value={edu.degree}
-                  onChange={(e) => handleEducationChange(index, 'degree', e.target.value)}
-                  className="block w-full p-2 border rounded"
-                />
-              </label>
+          {formData.educationDetails.map((edu, index) => (
+            <div key={index}>
+              <label>Degree *</label>
+              <input
+                type="text"
+                value={edu.degree}
+                onChange={(e) => handleEducationChange(index, 'degree', e.target.value)}
+                className="block w-full p-2 border rounded"
+                required
+              />
 
-              <label>
-                Institution *
-                <input
-                  type="text"
-                  name={`institution-${index}`}
-                  required
-                  value={edu.institution}
-                  onChange={(e) => handleEducationChange(index, 'institution', e.target.value)}
-                  className="block w-full p-2 border rounded"
-                />
-              </label>
+              <label>Institution *</label>
+              <input
+                type="text"
+                value={edu.institution}
+                onChange={(e) => handleEducationChange(index, 'institution', e.target.value)}
+                className="block w-full p-2 border rounded"
+                required
+              />
 
-              <label>
-                Year of Passing *
-                <input
-                  type="text"
-                  name={`yearOfPassing-${index}`}
-                  required
-                  value={edu.yearOfPassing}
-                  onChange={(e) => handleEducationChange(index, 'yearOfPassing', e.target.value)}
-                  className="block w-full p-2 border rounded"
-                />
-              </label>
+              <label>Year of Passing *</label>
+              <input
+                type="text"
+                value={edu.yearOfPassing}
+                onChange={(e) => handleEducationChange(index, 'yearOfPassing', e.target.value)}
+                className="block w-full p-2 border rounded"
+                required
+              />
             </div>
           ))}
           <button
@@ -288,19 +267,6 @@ const ApplicationForm = () => {
             + Add More Education
           </button>
         </div>
-
-        {/* Skills */}
-        <label>
-          Skills *
-          <textarea
-            name="skills"
-            required
-            value={formData.skills}
-            onChange={handleChange}
-            className="block w-full p-2 border rounded"
-            placeholder="List your skills separated by commas (e.g. JavaScript, React, Node.js)"
-          />
-        </label>
 
         <button type="submit" className="mt-4 bg-blue-500 text-white p-2 rounded">
           Submit Application

@@ -25,7 +25,7 @@ const JobEditForm = () => {
   useEffect(() => {
     const fetchJobDetails = async () => {
       try {
-        const response = await axios.get(`launchyourfuturebackend.up.railway.app/job/view/${id}`);
+        const response = await axios.get(`https://launchyourfuturebackend.up.railway.app/job/view/${id}`);
         setJobDetails(response.data);
       } catch (err) {
         setError("Error fetching job details.");

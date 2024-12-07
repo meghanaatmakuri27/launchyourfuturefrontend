@@ -33,7 +33,7 @@ export function Login() {
     setError(null);
 
     try {
-      const response = await axios.post("http://localhost:2026/student/checkstudentlogin", formData);
+      const response = await axios.post("launchyourfuturebackend.up.railway.app/student/checkstudentlogin", formData);
       const token = response.data;
 
       // Store the token in localStorage or sessionStorage

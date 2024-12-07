@@ -35,7 +35,7 @@ export function Signup() {
 
     try {
         const response = await axios.post(
-            "http://localhost:2026/student/addstudent",
+            "launchyourfuturebackend.up.railway.app/student/addstudent",
             formData, // Direct JSON data
             {
                 headers: {

@@ -1,4 +1,4 @@
-import Navbar from "./Navbar"; // Assuming you have a Navbar component
+import Navbar from "./navbar"; // Assuming you have a Navbar component
 
 const AboutUsPage = () => {
   return (

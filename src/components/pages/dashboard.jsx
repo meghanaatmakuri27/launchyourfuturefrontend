@@ -1,4 +1,4 @@
-import EmployeeSidebar from "./EmployeeSidebar";
+import EmployeeSidebar from "./employeesidebar";
 import Card from "./card";
 
 const Dashboard = () => {

@@ -1,4 +1,4 @@
-import EmployeeSidebar from "./EmployeeSidebar";
+import EmployeeSidebar from "./employeesidebar";
 
 const AboutEmployee = () => {
   return (

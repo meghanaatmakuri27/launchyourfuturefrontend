@@ -14,7 +14,7 @@ const JobList = () => {
   useEffect(() => {
     const fetchJobs = async () => {
       try {
-        const response = await axios.get("launchyourfuturebackend.up.railway.app/job/viewall");
+        const response = await axios.get("https://launchyourfuturebackend.up.railway.app/job/viewall");
         console.log(response.data);
         setJobs(response.data);
       } catch (err) {

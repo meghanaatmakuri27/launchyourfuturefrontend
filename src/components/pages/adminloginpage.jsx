@@ -35,7 +35,7 @@ export function AdminLogin() {
     try {
       // Sending data as JSON
       const response = await axios.post(
-        "launchyourfuturebackend.up.railway.app/admin/login",
+        "https://launchyourfuturebackend.up.railway.app/admin/login",
         {
           username: formData.email,
           password: formData.password,

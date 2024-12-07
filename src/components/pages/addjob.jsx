@@ -43,7 +43,7 @@ const JobForm = () => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "launchyourfuturebackend.up.railway.app/job/add",
+        "https://launchyourfuturebackend.up.railway.app/job/add",
         jobDetails,
         {
           headers: {

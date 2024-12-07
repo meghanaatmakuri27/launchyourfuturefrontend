@@ -63,7 +63,7 @@ const JobEditForm = () => {
     e.preventDefault();
     try {
       const response = await axios.put(
-        `launchyourfuturebackend.up.railway.app/job/update/${id}`, // Update request with job ID
+        `https://launchyourfuturebackend.up.railway.app/job/update/${id}`, // Update request with job ID
         jobDetails,
         {
           headers: {

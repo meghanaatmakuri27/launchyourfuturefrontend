@@ -33,7 +33,7 @@ const JobForm = () => {
 
   const handleDelete = async () => {
     try {
-      await axios.delete(`launchyourfuturebackend.up.railway.app/job/delete/${id}`);
+      await axios.delete(`https://launchyourfuturebackend.up.railway.app/job/delete/${id}`);
       navigate("/addjob"); // Redirect to the job list after successful deletion
     } catch (err) {
       setError("Error deleting the job.");

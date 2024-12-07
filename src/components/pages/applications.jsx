@@ -11,7 +11,7 @@ const Applications = () => {
 
   // Fetch applications data when the component mounts
   useEffect(() => {
-    axios.get('launchyourfuturebackend.up.railway.app/applications/')
+    axios.get('https://launchyourfuturebackend.up.railway.app/applications/')
       .then((response) => {
         setApplications(response.data);
         setFilteredApplications(response.data);
@@ -47,7 +47,7 @@ const Applications = () => {
     setApplications(updatedApplications);
     setFilteredApplications(updatedApplications);
 
-    axios.put(`launchyourfuturebackend.up.railway.app/applications/${applicationId}`, { status: newStatus })
+    axios.put(`https://launchyourfuturebackend.up.railway.app/applications/${applicationId}`, { status: newStatus })
       .then(() => {
         console.log('Status updated');
       })
@@ -63,7 +63,7 @@ const Applications = () => {
 
   // Handle delete for application
   const handleDelete = (applicationId) => {
-    axios.delete(`launchyourfuturebackend.up.railway.app/applications/delete/${applicationId}`)
+    axios.delete(`https://launchyourfuturebackend.up.railway.app/applications/delete/${applicationId}`)
       .then(() => {
         const updatedApplications = applications.filter(application => application.id !== applicationId);
         setApplications(updatedApplications);

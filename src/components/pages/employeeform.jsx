@@ -29,7 +29,7 @@ const EmployeeForm = () => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "launchyourfuturebackend.up.railway.app/employee/add", // Adjusted the endpoint for employees
+        "https://launchyourfuturebackend.up.railway.app/employee/add", // Adjusted the endpoint for employees
         employeeDetails,
         {
           headers: {

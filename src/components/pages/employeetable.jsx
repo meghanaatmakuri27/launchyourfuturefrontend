@@ -18,7 +18,7 @@ const EmployeeTable = () => {
   const fetchEmployees = () => {
     setLoading(true);
     axios
-      .get("launchyourfuturebackend.up.railway.app/employee/viewall")
+      .get("https://launchyourfuturebackend.up.railway.app/employee/viewall")
       .then((response) => {
         setEmployees(response.data); // Update state with fetched employees
         setLoading(false);

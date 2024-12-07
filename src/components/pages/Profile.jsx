@@ -18,14 +18,14 @@ const ProfilePage = () => {
       setUser((prevUser) => ({ ...prevUser, email: storedEmail }));
 
       axios
-        .get(`launchyourfuturebackend.up.railway.app/applications/by-email/${storedEmail}`)
+        .get(`https://launchyourfuturebackend.up.railway.app/applications/by-email/${storedEmail}`)
         .then((response) => {
           setApplications(response.data);
           setLoading(false);
 
           response.data.forEach((application) => {
             axios
-              .get(`launchyourfuturebackend.up.railway.app/job/view/${application.jobId}`)
+              .get(`https://launchyourfuturebackend.up.railway.app/job/view/${application.jobId}`)
               .then((jobResponse) => {
                 setJobDetails((prevJobDetails) => ({
                   ...prevJobDetails,

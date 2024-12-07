@@ -1,5 +1,5 @@
 import EmployeeSidebar from "./EmployeeSidebar";
-import Card from "./Card";
+import Card from "./card";
 
 const Dashboard = () => {
   const stats = [

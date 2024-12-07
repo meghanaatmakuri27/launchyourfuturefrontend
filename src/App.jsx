@@ -25,6 +25,7 @@ import AdminDashboard from './components/pages/admindashboard';
 import AdminAboutPage from './components/pages/adminabout';
 import AboutUsPage from './components/pages/aboutus';
 import JoinTalentNetworkPage from './components/pages/jointalentnetwork';
+import SubmitApplication from './components/pages/applications';
 const App = () => {
   return (
     <>
@@ -56,6 +57,7 @@ const App = () => {
         <Route path="/adminabout" element={<AdminAboutPage/>}/>
         <Route path="/about" element={<AboutUsPage/>}/>
         <Route path="/joinnetwork" element={<JoinTalentNetworkPage/>}/>
+        <Route path="/application" element={<SubmitApplication/>}/>
       </Routes>
     </>
   );

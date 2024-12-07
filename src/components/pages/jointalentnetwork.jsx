@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Navbar from "./Navbar"; // Assuming you have a Navbar component
+import Navbar from "./navbar"; // Assuming you have a Navbar component
 
 const JoinTalentNetworkPage = () => {
   const [isSubmitted, setIsSubmitted] = useState(false); // State to handle form submission

@@ -11,7 +11,7 @@ const Applications = () => {
 
   // Fetch applications data when the component mounts
   useEffect(() => {
-    axios.get('https://launchyourfuturebackend.up.railway.app/applications')
+    axios.get('https://launchyourfuturebackend.up.railway.app/applications/viewall')
       .then((response) => {
         setApplications(response.data);
         setFilteredApplications(response.data);

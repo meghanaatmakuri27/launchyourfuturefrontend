@@ -1,4 +1,4 @@
-
+import EmployeeSidebar from "./EmployeeSidebar";
 
 const AboutEmployee = () => {
   return (
@@ -7,7 +7,7 @@ const AboutEmployee = () => {
       <div className="flex">
         {/* Sidebar Section */}
         <div className="w-1/4 bg-white shadow-md h-screen">
-         
+          <EmployeeSidebar />
         </div>
 
         {/* Main Content Section */}

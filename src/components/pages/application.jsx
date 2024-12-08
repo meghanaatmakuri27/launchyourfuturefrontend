@@ -82,9 +82,6 @@ const ApplicationForm = () => {
     if (formData.resume) submissionData.append("resume", formData.resume);
     submissionData.append("educationDetails", JSON.stringify(formData.educationDetails));
     submissionData.append("skills", formData.skills);
-
-   
-      console.log("Application submitted successfully:", response.data);
       navigate("/success");
     
   };

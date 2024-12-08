@@ -84,15 +84,6 @@ const ApplicationForm = () => {
     submissionData.append("skills", formData.skills);
 
     try {
-      const response = await axios.post(
-        "https://launchyourfuturebackend.up.railway.app/applications/add",
-        submissionData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
       console.log("Application submitted successfully:", response.data);
       navigate("/success");
     } catch (error) {

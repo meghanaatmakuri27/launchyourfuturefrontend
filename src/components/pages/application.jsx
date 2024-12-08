@@ -83,18 +83,10 @@ const ApplicationForm = () => {
     submissionData.append("educationDetails", JSON.stringify(formData.educationDetails));
     submissionData.append("skills", formData.skills);
 
-    try {
+   
       console.log("Application submitted successfully:", response.data);
       navigate("/success");
-    } catch (error) {
-      console.error("Error submitting application:", error);
-
-      if (error.response?.status === 400) {
-        setFormError("You have already applied for this job.");
-      } else {
-        setFormError("Failed to submit the application. Please try again.");
-      }
-    }
+    
   };
 
   return (
